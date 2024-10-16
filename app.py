@@ -30,7 +30,7 @@ def run_prediction_app():
 
     # Predict fare using the LGBM model
     if st.button('Predict Fare'):
-        fare_pred = LGBM_Model.predict([[distance]])
+        fare_pred = np.exp(LGBM_Model.predict([[distance]]))
         st.write(f"Predicted Fare: ${fare_pred[0]:.2f}")
 
 def haversine_array(pickup_long, pickup_lat, dropoff_long, dropoff_lat):
