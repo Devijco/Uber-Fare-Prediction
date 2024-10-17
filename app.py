@@ -1,11 +1,14 @@
 import streamlit as st
 import pickle
 import numpy as np
-import lightgbm as lgb
 
 # Load LGBM model di awal sebelum digunakan
-with open('LGBMRegressor.pkl', 'rb') as file:
-    LGBM_Model = pickle.load(file)
+with open('LinearRegression.pkl', 'rb') as file:
+    LinearRegression_Model = pickle.load(file)
+    
+# Load scaler
+with open('StandardScalerUber.pkl', 'rb') as file:
+    scaler = pickle.load(file)
 
 def main():
     st.sidebar.title("Uber Fare Prediction")
@@ -30,7 +33,8 @@ def run_prediction_app():
 
     # Predict fare using the LGBM model
     if st.button('Predict Fare'):
-        fare_pred = np.exp(LGBM_Model.predict([[distance]]))
+        distance = scaler.transform([[distance]])
+        fare_pred = LinearRegression_Model.predict(distance)
         st.write(f"Predicted Fare: ${fare_pred[0]:.2f}")
 
 def haversine_array(pickup_long, pickup_lat, dropoff_long, dropoff_lat):
