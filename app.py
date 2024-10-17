@@ -2,7 +2,7 @@ import streamlit as st
 import pickle
 import numpy as np
 
-# Load LGBM model di awal sebelum digunakan
+# Load LinearRegression model di awal sebelum digunakan
 with open('LinearRegression.pkl', 'rb') as file:
     LinearRegression_Model = pickle.load(file)
     
